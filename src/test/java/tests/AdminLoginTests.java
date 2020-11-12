@@ -3,8 +3,6 @@ package tests;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
-
 public class AdminLoginTests extends TestBase{
 
   @Test
@@ -13,7 +11,7 @@ public class AdminLoginTests extends TestBase{
     wd.findElement(By.name("username")).sendKeys("admin");
     wd.findElement(By.name("password")).sendKeys("admin");
     wd.findElement(By.tagName("button")).click();
-    
+
   }
 
 }
