@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +20,7 @@ public class TestBase {
     wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
   }
 
-@AfterMethod
+  @AfterMethod
   public void stop(){
     wd.quit();
   }
@@ -32,6 +33,15 @@ public class TestBase {
     } catch (NoSuchElementException ex) {
       return false;
     }
+  }
+
+  //check if elements are present
+  boolean areElementsPresent(By locator) {
+    return wd.findElements(locator).size() > 0;
+  }
+
+  public void mainPage(){
+    wd.get("http://localhost/litecart/");
   }
 
 
