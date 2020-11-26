@@ -1,9 +1,9 @@
 package tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
@@ -13,11 +13,13 @@ import java.util.concurrent.TimeUnit;
 public class TestBase {
 
   public WebDriver wd;
+  public WebDriverWait wait;
 
   @BeforeMethod
   public void start(){
-    wd= new FirefoxDriver();
-    wd.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+    wd= new ChromeDriver();
+    wd.manage().timeouts().implicitlyWait(10 ,TimeUnit.SECONDS);
+    wait= new WebDriverWait(wd, 10);
   }
 
   @AfterMethod
@@ -28,9 +30,10 @@ public class TestBase {
 //check if element is present
   public boolean isElementPresent(By locator) {
     try {
-      wd.findElement(locator);
+      wait.until((WebDriver d ) -> d.findElement(locator));
+      //wd.findElement(locator);
       return true;
-    } catch (NoSuchElementException ex) {
+    } catch (TimeoutException ex) {
       return false;
     }
   }
