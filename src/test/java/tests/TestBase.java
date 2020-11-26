@@ -19,7 +19,7 @@ public class TestBase {
   public void start(){
     wd= new ChromeDriver();
     wd.manage().timeouts().implicitlyWait(10 ,TimeUnit.SECONDS);
-    wait= new WebDriverWait(wd, 10);
+    wait= new WebDriverWait(wd, 2);
   }
 
   @AfterMethod
@@ -30,8 +30,8 @@ public class TestBase {
 //check if element is present
   public boolean isElementPresent(By locator) {
     try {
-      wait.until((WebDriver d ) -> d.findElement(locator));
-      //wd.findElement(locator);
+      //wait.until((WebDriver d ) -> d.findElement(locator));
+      wd.findElement(locator);
       return true;
     } catch (TimeoutException ex) {
       return false;
