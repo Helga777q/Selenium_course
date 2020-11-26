@@ -77,7 +77,7 @@ public class CountryTest extends TestBase {
 
   private void openCountryPage(int countryRow) {
     WebElement tbody = wd.findElement(By.tagName("tbody"));
-    tbody.findElement(By.xpath(String.format(("//tr[%s]/td[7]/a[@title='Edit']"), countryRow))).click();
+    tbody.findElement(By.xpath(String.format(("tr[%s]/td[7]/a[@title='Edit']"), countryRow))).click();
   }
 
 
