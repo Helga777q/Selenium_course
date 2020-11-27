@@ -3,6 +3,7 @@ package tests;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -17,7 +18,7 @@ public class TestBase {
 
   @BeforeMethod
   public void start(){
-    wd= new ChromeDriver();
+    wd= new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(10 ,TimeUnit.SECONDS);
     wait= new WebDriverWait(wd, 2);
   }

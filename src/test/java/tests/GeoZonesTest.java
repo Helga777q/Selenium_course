@@ -41,13 +41,14 @@ public class GeoZonesTest extends TestBase {
     wd.findElement(By.name("username")).sendKeys("admin");
     wd.findElement(By.name("password")).sendKeys("admin");
     wd.findElement(By.tagName("button")).click();
-    wd.findElement(By.cssSelector("li[data-code='geo_zones']")).click();
+    //wd.findElement(By.cssSelector("li[data-code='geo_zones']")).click();
+    wd.findElement(By.cssSelector("span[title='Geo Zones']")).click();
 
   }
 
   private void openGeoZonePage(int row){
     WebElement tbody = wd.findElement(By.tagName("tbody"));
-    tbody.findElement(By.xpath(String.format(("tr[%s]/td[3]/a"), row))).click();
+    tbody.findElement(By.xpath(String.format(("tr[%s]/td[5]/a[@title='Edit']"), row))).click();
   }
 
   private boolean isAlpabeticOrder(){
