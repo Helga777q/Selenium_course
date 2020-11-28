@@ -29,7 +29,7 @@ public class AdminLoginTests extends TestBase {
     for (int i =0; i<items; i++){
       menu = wd.findElements(By.cssSelector("#box-apps-menu a"));
       menu.get(i).click();
-      isElementPresent((By.tagName("title")));
+      isElementPresent((By.tagName("h1")));
       }
   }
 
