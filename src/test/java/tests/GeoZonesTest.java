@@ -17,8 +17,8 @@ public class GeoZonesTest extends TestBase {
   @Test
   public  void geoZonesAdminTest(){
     openGeoZones();
-    WebElement tbody = wd.findElement(By.tagName("tbody"));
-    List<WebElement> rows = tbody.findElements(By.tagName("tr"));
+    WebElement tbody = wd.findElement(By.cssSelector(".dataTable tbody"));
+    List<WebElement> rows = tbody.findElements(By.className("row"));
     List<Integer> assertCount= new ArrayList<>();
     for (int i=1;i<=rows.size();i++){
       openGeoZonePage(i);
@@ -41,27 +41,26 @@ public class GeoZonesTest extends TestBase {
     wd.findElement(By.name("username")).sendKeys("admin");
     wd.findElement(By.name("password")).sendKeys("admin");
     wd.findElement(By.tagName("button")).click();
-    //wd.findElement(By.cssSelector("li[data-code='geo_zones']")).click();
-    wd.findElement(By.cssSelector("span[title='Geo Zones']")).click();
-
+    wd.findElement(By.xpath("//span[contains(text(),'Geo Zones')]")).click();
   }
 
+
   private void openGeoZonePage(int row){
-    WebElement tbody = wd.findElement(By.tagName("tbody"));
-    tbody.findElement(By.xpath(String.format(("tr[%s]/td[5]/a[@title='Edit']"), row))).click();
+    WebElement table = wd.findElement(By.cssSelector(".dataTable .row"));
+    table.findElement(By.xpath(String.format(("//tr[%s]/td[5]/a/i"), row+1))).click();
   }
 
   private boolean isAlpabeticOrder(){
-    WebElement tbody = wd.findElement(By.tagName("tbody"));
-    List<WebElement> rows = tbody.findElements(By.tagName("tr"));
-    List<String> countryNames = new ArrayList<>(); // empty list for countries of geoZones
-    for (WebElement row: rows){
-      String countryName = row.findElement((By.xpath("td[2]"))).getAttribute("innerText");
-      countryNames.add(countryName);
+    WebElement tbody = wd.findElement(By.id("table-zones"));
+    List<WebElement> rows = tbody.findElements(By.cssSelector("tr:not(.header)"));
+    List<String> zones = new ArrayList<>(); // empty list for countries of geoZones
+    for (int i = 0; i<rows.size()-1; i++){
+      String zone = rows.get(i).findElement((By.cssSelector("td:nth-of-type(3) >  select > option[selected = 'selected']"))).getAttribute("innerText");
+      zones.add(zone);
     }
-    List<String> notSorted = new ArrayList<>(countryNames);
-    Collections.sort(countryNames);
-    return countryNames.equals(notSorted);
+    List<String> notSorted = new ArrayList<>(zones);
+    Collections.sort(zones);
+    return zones.equals(notSorted);
   }
 
 
