@@ -18,7 +18,7 @@ public class TestBase {
 
   @BeforeMethod
   public void start(){
-    wd= new ChromeDriver();
+    wd= new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(10 ,TimeUnit.SECONDS);
     wait= new WebDriverWait(wd, 2);
   }
