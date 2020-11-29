@@ -52,7 +52,7 @@ public class StickersCheckTests extends TestBase {
     ArrayList<Boolean> test2 = new ArrayList();
     for (WebElement product : products) {
       List<WebElement> labels = product.findElements(By.cssSelector("[class~=sticker]"));
-      System.out.println(labels.size());
+     // System.out.println(labels.size());
       if (labels.size() == 1) {
         test.add(true);
       } else {
