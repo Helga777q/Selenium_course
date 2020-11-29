@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -69,7 +68,7 @@ public class CampaignProductsTests extends TestBase {
   @Test
   public void campaignPriceColourProductPageTest() {
     mainPage();
-    openProductCampaignPage(0);
+    openProductCampaignPage(1);
     WebElement discountPrice = wd.findElement(By.cssSelector("div.information  .campaign-price"));
     String color = discountPrice.getCssValue("color");
     assertTrue(isColourRed(color));
@@ -155,7 +154,7 @@ public class CampaignProductsTests extends TestBase {
 
   private void openProductCampaignPage(int id) {
     WebElement campaign = wd.findElement(By.id("box-campaigns"));
-    campaign.findElements(By.cssSelector("li > a")).get(id).click();
+    campaign.findElements(By.tagName("li")).get(id).click();
 
   }
 
