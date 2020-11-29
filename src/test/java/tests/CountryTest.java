@@ -68,7 +68,6 @@ public class CountryTest extends TestBase {
   }
 
 
-@Test
   private void openCountries() {
     wd.get("http://localhost/litecart/admin/login.php");
     wd.findElement(By.name("username")).sendKeys("admin");
