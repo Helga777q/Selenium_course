@@ -1,6 +1,5 @@
 package tests;
 
-import com.beust.jcommander.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -13,7 +12,7 @@ public class AdminLoginTests extends TestBase {
 
 
   @Test
-  public  void loginAsAdminTest() {
+  public  void loginAsAdminTest() throws InterruptedException {
     loginAsAdmin();
     String alertMessage = wd.findElement(By.cssSelector("div#notices > .notice.success")).getText().trim();
     assertTrue(isElementPresent(By.cssSelector("a[title='Logout']")));
@@ -22,7 +21,7 @@ public class AdminLoginTests extends TestBase {
 
 
   @Test
-  public void adminMenuTest(){
+  public void adminMenuTest() throws InterruptedException {
     loginAsAdmin();
     List<WebElement> menu = wd.findElements(By.cssSelector("#box-apps-menu a"));
     int items = menu.size();
@@ -35,11 +34,11 @@ public class AdminLoginTests extends TestBase {
 
 
 
-  public  void loginAsAdmin() {
-    wd.get("http://localhost/litecart/admin/login.php");
-    wd.findElement(By.name("username")).sendKeys("admin");
-    wd.findElement(By.name("password")).sendKeys("admin");
-    wd.findElement(By.tagName("button")).click();
+  public  void loginAsAdmin() throws InterruptedException {
+   goToAdminPage();
+   type(By.name("username"), "admin");
+   type(By.name("password"), "admin");
+   click(By.tagName("button"));
   }
 
 }

@@ -1,9 +1,11 @@
 package tests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 
@@ -31,7 +33,8 @@ public class TestBase {
 //check if element is present
 public boolean isElementPresent(By locator) {
   try {
-    wd.findElement(locator);
+    wait.until((WebDriver d)-> d.findElement(locator));
+    //wd.findElement(locator);
     return true;
   } catch (NoSuchElementException ex) {
     return false;
@@ -46,6 +49,32 @@ public boolean isElementPresent(By locator) {
   public void mainPage(){
     wd.get("http://localhost/litecart/");
   }
+
+  public void type(By locator, String text) throws InterruptedException {
+    click(locator);
+    wd.findElement(locator).sendKeys(text);
+  }
+
+  public void click(By locator) throws InterruptedException {
+    TimeUnit.MILLISECONDS.sleep(600); //- for Chrome
+    wd.findElement(locator).click();
+  }
+
+  public void goToAdminPage(){
+    wd.get("http://localhost/litecart/admin/login.php");
+  }
+
+  public void selectFromDropdown(By locator, String option){
+     new Select (wd.findElement(locator)).selectByVisibleText(option);
+  }
+
+
+  public void searchSelectDropdown(By dropdown, By search, String text) throws InterruptedException {
+    click(dropdown);
+    type(search, text);
+    wd.findElement(search).sendKeys(Keys.ENTER);
+  }
+
 
 
 
