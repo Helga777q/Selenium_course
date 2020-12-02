@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 
@@ -55,9 +56,20 @@ public boolean isElementPresent(By locator) {
     wd.findElement(locator).sendKeys(text);
   }
 
+  public void typeTab(By locator, String text) throws InterruptedException {
+    wd.findElement(locator).sendKeys(Keys.TAB);
+    wd.findElement(locator).sendKeys(text);
+  }
+
   public void click(By locator) throws InterruptedException {
     TimeUnit.MILLISECONDS.sleep(600); //- for Chrome
     wd.findElement(locator).click();
+  }
+
+  public void clearAndType(By locator, String text) throws InterruptedException {
+    click(locator);
+    wd.findElement(locator).clear();
+    wd.findElement(locator).sendKeys(text);
   }
 
   public void goToAdminPage(){
@@ -67,12 +79,35 @@ public boolean isElementPresent(By locator) {
   public void selectFromDropdown(By locator, String option){
      new Select (wd.findElement(locator)).selectByVisibleText(option);
   }
+  public void selectFromDropdown(By locator, int index){
+    new Select (wd.findElement(locator)).selectByIndex(index);
+  }
 
 
   public void searchSelectDropdown(By dropdown, By search, String text) throws InterruptedException {
     click(dropdown);
     type(search, text);
     wd.findElement(search).sendKeys(Keys.ENTER);
+  }
+
+  public void attachFile(By locator, File file){
+    wd.findElement(locator).sendKeys(file.getAbsolutePath());
+  }
+
+
+  public void clickCheckBox(By locator){
+    boolean checked = Boolean.parseBoolean(wd.findElement(locator).getAttribute("checked"));
+    if (!checked){
+      wd.findElement(locator).click();
+    }
+
+  }
+
+  public  void loginAsAdmin() throws InterruptedException {
+    goToAdminPage();
+    type(By.name("username"), "admin");
+    type(By.name("password"), "admin");
+    click(By.tagName("button"));
   }
 
 
