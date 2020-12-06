@@ -5,6 +5,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
@@ -21,8 +23,8 @@ public class TestBase {
 
   @BeforeMethod
   public void start(){
-    wd= new ChromeDriver();
-    wd.manage().timeouts().implicitlyWait(10 , TimeUnit.SECONDS);
+    wd= new FirefoxDriver();
+    wd.manage().timeouts().implicitlyWait(2 , TimeUnit.SECONDS);
     wait= new WebDriverWait(wd, 2);
   }
 
@@ -51,22 +53,21 @@ public boolean isElementPresent(By locator) {
     wd.get("http://localhost/litecart/");
   }
 
-  public void type(By locator, String text) throws InterruptedException {
+  public void type(By locator, String text)  {
     click(locator);
     wd.findElement(locator).sendKeys(text);
   }
 
-  public void typeTab(By locator, String text) throws InterruptedException {
+  public void typeTab(By locator, String text)  {
     wd.findElement(locator).sendKeys(Keys.TAB);
     wd.findElement(locator).sendKeys(text);
   }
 
-  public void click(By locator) throws InterruptedException {
-    TimeUnit.MILLISECONDS.sleep(600); //- for Chrome
+  public void click(By locator) {
     wd.findElement(locator).click();
   }
 
-  public void clearAndType(By locator, String text) throws InterruptedException {
+  public void clearAndType(By locator, String text)  {
     click(locator);
     wd.findElement(locator).clear();
     wd.findElement(locator).sendKeys(text);
@@ -84,7 +85,7 @@ public boolean isElementPresent(By locator) {
   }
 
 
-  public void searchSelectDropdown(By dropdown, By search, String text) throws InterruptedException {
+  public void searchSelectDropdown(By dropdown, By search, String text)  {
     click(dropdown);
     type(search, text);
     wd.findElement(search).sendKeys(Keys.ENTER);
@@ -103,7 +104,7 @@ public boolean isElementPresent(By locator) {
 
   }
 
-  public  void loginAsAdmin() throws InterruptedException {
+  public  void loginAsAdmin()  {
     goToAdminPage();
     type(By.name("username"), "admin");
     type(By.name("password"), "admin");

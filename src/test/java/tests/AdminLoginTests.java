@@ -21,7 +21,7 @@ public class AdminLoginTests extends TestBase {
 
 
   @Test
-  public void adminMenuTest() throws InterruptedException {
+  public void adminMenuTest()  {
     loginAsAdmin();
     List<WebElement> menu = wd.findElements(By.cssSelector("#box-apps-menu a"));
     int items = menu.size();
@@ -34,7 +34,7 @@ public class AdminLoginTests extends TestBase {
 
 
 
-  public  void loginAsAdmin() throws InterruptedException {
+  public  void loginAsAdmin()  {
    goToAdminPage();
    type(By.name("username"), "admin");
    type(By.name("password"), "admin");
