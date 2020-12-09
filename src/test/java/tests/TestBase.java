@@ -23,7 +23,7 @@ public class TestBase {
 
   @BeforeMethod
   public void start(){
-    wd= new FirefoxDriver();
+    wd= new InternetExplorerDriver();
     wd.manage().timeouts().implicitlyWait(2 , TimeUnit.SECONDS);
     wait= new WebDriverWait(wd, 2);
   }
