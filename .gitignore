@@ -15,3 +15,4 @@ gradle-app.setting
 .idea/misc.xml
 .idea/uiDesigner.xml
 *.log
+*.png

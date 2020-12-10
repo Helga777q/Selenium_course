@@ -1,29 +1,61 @@
 package tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
 
 
 public class TestBase {
 
-  public WebDriver wd;
+  public  EventFiringWebDriver wd;
   public WebDriverWait wait;
+
+
+
+  public  static class MyListener extends AbstractWebDriverEventListener {
+
+    @Override
+    public void beforeFindBy(By by, WebElement element, WebDriver driver) {
+      System.out.println(by);
+    }
+
+    @Override
+    public void onException(Throwable throwable, WebDriver driver) {
+      System.out.println(throwable);
+      File tmp = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+      File screen = new File("screen-"+System.currentTimeMillis()+ ".png");
+      try {
+        FileHandler.copy(tmp,screen);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      System.out.println(screen);
+    }
+
+    @Override
+    public void afterFindBy(By by, WebElement element, WebDriver driver) {
+      System.out.println(by+ " found");
+
+    }
+  }
+
+
 
   @BeforeMethod
   public void start(){
-    wd= new FirefoxDriver();
+    wd= new EventFiringWebDriver(new ChromeDriver());
+    wd.register(new MyListener());
     wd.manage().timeouts().implicitlyWait(2 , TimeUnit.SECONDS);
     wait= new WebDriverWait(wd, 2);
   }
@@ -44,7 +76,7 @@ public boolean isElementPresent(By locator) {
   }
 }
 
-  //check if elements are present
+//check if elements are present
   boolean areElementsPresent(By locator) {
     return wd.findElements(locator).size() > 0;
   }
@@ -110,8 +142,6 @@ public boolean isElementPresent(By locator) {
     type(By.name("password"), "admin");
     click(By.tagName("button"));
   }
-
-
 
 
 }
