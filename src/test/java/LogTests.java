@@ -65,8 +65,13 @@ public class LogTests extends TestBase {
   }
 
 
-
-
+  @Test
+  public void getBrowserLogs(){
+   wd.get("https://software-testing.ru/edu/");
+   System.out.println(wd.manage().logs().getAvailableLogTypes());
+    List<LogEntry> logs  = wd.manage().logs().get("performance").getAll();
+    logs.forEach(l-> System.out.println(l));
+  }
 
 
 }

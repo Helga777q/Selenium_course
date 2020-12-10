@@ -2,7 +2,12 @@ package tests;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -13,7 +18,7 @@ import org.testng.annotations.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
+import java.util.logging.Level;
 
 
 public class TestBase {
@@ -54,7 +59,13 @@ public class TestBase {
 
   @BeforeMethod
   public void start(){
-    wd= new EventFiringWebDriver(new ChromeDriver());
+
+    ChromeOptions opt = new ChromeOptions();
+    LoggingPreferences logPrefs = new LoggingPreferences();
+    logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+    opt.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+    opt.setExperimentalOption("w3c", false);
+    wd= new EventFiringWebDriver(new ChromeDriver(opt));
     wd.register(new MyListener());
     wd.manage().timeouts().implicitlyWait(2 , TimeUnit.SECONDS);
     wait= new WebDriverWait(wd, 2);
