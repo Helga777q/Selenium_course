@@ -1,4 +1,4 @@
-package tests;
+package generator;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
