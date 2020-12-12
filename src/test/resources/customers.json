@@ -1,0 +1,38 @@
+[
+  {
+    "firstName": "First Name 0",
+    "lastName": "Last Name 0",
+    "address": "Some address 0",
+    "postcode": "12345",
+    "city": "Odessa",
+    "country": "United States",
+    "zone": "Alaska",
+    "email": "cqvlbjr@example.com",
+    "phone": "+1667770",
+    "password": "12345670"
+  },
+  {
+    "firstName": "First Name 1",
+    "lastName": "Last Name 1",
+    "address": "Some address 1",
+    "postcode": "12345",
+    "city": "Odessa",
+    "country": "United States",
+    "zone": "Alaska",
+    "email": "hxjkgfk@example.com",
+    "phone": "+1667771",
+    "password": "12345671"
+  },
+  {
+    "firstName": "First Name 2",
+    "lastName": "Last Name 2",
+    "address": "Some address 2",
+    "postcode": "12345",
+    "city": "Odessa",
+    "country": "United States",
+    "zone": "Florida",
+    "email": "ztjhpzo@example.com",
+    "phone": "+1667772",
+    "password": "12345672"
+  }
+]
