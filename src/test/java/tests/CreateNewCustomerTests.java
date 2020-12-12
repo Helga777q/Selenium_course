@@ -1,39 +1,16 @@
 package tests;
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
+
 import models.Customer;
 import org.openqa.selenium.By;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.io.*;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class CreateNewCustomerTests extends TestBase{
 
-  @DataProvider
-  public Iterator<Object[]> customers() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/customers.json")));
-      String json = "";
-      String line = reader.readLine();
-      while (line != null) {
-        json += line;
-        line = reader.readLine();
-      }
-      Gson gson = new Gson();
-      List<Customer> customers = gson.fromJson(json, new TypeToken<List<Customer>>() {
-      }.getType());
-      return customers.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
-  }
-
-
-
-
-  @Test (dataProvider = "customers")
+  
+  @Test (dataProvider = "customers", dataProviderClass = DataProviders.class)
   public void registerNewCustomer(Customer customer)  {
     mainPage();
     initNewAccountCreation();
