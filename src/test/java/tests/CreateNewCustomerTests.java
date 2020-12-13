@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 public class CreateNewCustomerTests extends TestBase{
 
   
-  @Test (dataProvider = "customers", dataProviderClass = DataProviders.class)
+  @Test (dataProvider = "customers")
   public void registerNewCustomer(Customer customer)  {
     mainPage();
     initNewAccountCreation();
